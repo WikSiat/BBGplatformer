@@ -1,8 +1,15 @@
 package com.bbgoplatformer.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.bbgplatformer.BBGplatformer;
+import com.bbgplatformer.ui.ExitButton;
+import com.bbgplatformer.ui.IClickCallback;
+import com.bbgplatformer.ui.StartButton;
 
 public class MainMenuScreen extends AbstractScreen {
+
+	private StartButton startButton;
+	private ExitButton exitButton;
 
 	public MainMenuScreen(final BBGplatformer game) {
 		super(game);
@@ -10,8 +17,34 @@ public class MainMenuScreen extends AbstractScreen {
 
 	@Override
 	protected void init() {
-		// TODO Auto-generated method stub
-		
+		startButtonInit();
+		exitButtonInit();
+	}
+	
+	@Override
+	public void render(float delta) {
+		super.render(delta);
+		stage.act();
+		stage.draw();
+	}
+
+	private void startButtonInit() {
+		startButton = new StartButton(new IClickCallback() {
+			public void onClick() {
+			}
+		});
+
+		stage.addActor(startButton);
+	}
+	
+	private void exitButtonInit() {
+		exitButton = new ExitButton(new IClickCallback() {
+			public void onClick() {
+				Gdx.app.exit();
+			}
+		});
+
+		stage.addActor(exitButton);
 	}
 
 }
