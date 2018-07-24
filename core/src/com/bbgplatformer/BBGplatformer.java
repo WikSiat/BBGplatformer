@@ -1,8 +1,7 @@
 package com.bbgplatformer;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.bbgoplatformer.screens.SplashScreen;
 
 public class BBGplatformer extends Game {
 
@@ -14,16 +13,7 @@ public class BBGplatformer extends Game {
 
 	@Override
 	public void create() {
-	}
-
-	@Override
-	public void render() {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	}
-
-	@Override
-	public void dispose() {
+		this.setScreen(new SplashScreen(this));
 	}
 
 	/*
