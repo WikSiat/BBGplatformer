@@ -31,6 +31,7 @@ public class MainMenuScreen extends AbstractScreen {
 	private void startButtonInit() {
 		startButton = new StartButton(new IClickCallback() {
 			public void onClick() {
+				game.setScreen(new GameplayScreen(game));
 			}
 		});
 
