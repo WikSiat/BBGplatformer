@@ -1,10 +1,10 @@
 package com.bbgplatformer;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
-public class BBGplatformer extends ApplicationAdapter {
+public class BBGplatformer extends Game {
 
 	public final static String GAME_NAME = "platformGame";
 
