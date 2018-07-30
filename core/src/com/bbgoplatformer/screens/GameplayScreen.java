@@ -3,9 +3,9 @@ package com.bbgoplatformer.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.bbgplatformer.BBGplatformer;
 import com.bbgplatformer.entities.Player;
+import com.bbgplatformer.staticobjects.Background;
 import com.bbgplatformer.staticobjects.Platform;
 
 public class GameplayScreen extends AbstractScreen {
@@ -15,12 +15,8 @@ public class GameplayScreen extends AbstractScreen {
 	private int numberOfPlatforms;
 	private int gravity;
 	private Player player;
-	private Image[] bgImages;
-	private int bgIndex1;
-
-	private final static int BG1_STARTING_X = -370;
-	private final static int BG2_STARTING_X = 1230;
-	private final static int BG_STARTING_Y = -130;
+	private Background bg1;
+	private Background bg2;
 
 	public GameplayScreen(BBGplatformer game) {
 		super(game);
@@ -39,20 +35,11 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void bgInit() {
-		bgImages = new Image[2];
-		bgImages[0] = new Image(new Texture("tlo.jpg"));
-		bgImages[1] = new Image(new Texture("tlo.jpg"));
-		setStartingBackgroundPossition();
-		stage.addActor(bgImages[0]);
-		stage.addActor(bgImages[1]);
-	}
-
-	private void setStartingBackgroundPossition() {
-		bgIndex1 = 1;
-		bgImages[0].setX(BG1_STARTING_X);
-		bgImages[0].setY(BG_STARTING_Y);
-		bgImages[1].setX(BG2_STARTING_X);
-		bgImages[1].setY(BG_STARTING_Y);
+		bg1 = new Background();
+		bg2 = new Background();
+		Background.setStartingBackgroundPossition(bg1,bg2);
+		stage.addActor(bg1);
+		stage.addActor(bg2);
 	}
 
 	private void playerInit() {
@@ -87,44 +74,11 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void update() {
-		bgUpdate();
+		Background.bgUpdate(player, bg1, bg2);
 		handleInput();
 		gravityUpdate();
 		stage.act();
 
-	}
-
-	// renders looping background that can scroll infinitely and will adjust to player's moves
-	private void bgUpdate() {
-		if (player.getX() == (BG2_STARTING_X + bgIndex1 * 1600 - 430) && player.isTurnedRight) {
-			switch (bgIndex1 % 2) {
-			case 0:
-				bgImages[1].setX(BG2_STARTING_X + bgIndex1 * 1600);
-				break;
-			case 1:
-				bgImages[0].setX(BG2_STARTING_X + bgIndex1 * 1600);
-				break;
-			default:
-				break;
-			}
-			bgIndex1++;
-		} else if (player.getX() == (BG2_STARTING_X + (bgIndex1 - 1) * 1600 - 430) && !player.isTurnedRight) {
-			bgIndex1--;
-			if (bgIndex1 == 0) {
-				setStartingBackgroundPossition();
-			} else {
-				switch (bgIndex1 % 2) {
-				case 0:
-					bgImages[1].setX(BG1_STARTING_X + (bgIndex1 - 1) * 1600);
-					break;
-				case 1:
-					bgImages[0].setX(BG1_STARTING_X + (bgIndex1 - 1) * 1600);
-					break;
-				default:
-					break;
-				}
-			}
-		}
 	}
 
 	private void handleInput() {
@@ -149,7 +103,7 @@ public class GameplayScreen extends AbstractScreen {
 		} else {
 			player.setX(Player.STARTING_X);
 			player.setY(Player.STARTING_Y);
-			setStartingBackgroundPossition();
+			Background.setStartingBackgroundPossition(bg1,bg2);
 		}
 		for (Platform p : platforms) {
 			if (player.isPlayerOnPlatform(p)) {
