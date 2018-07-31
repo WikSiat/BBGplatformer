@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.bbgplatformer.BBGplatformer;
 import com.bbgplatformer.entities.Player;
 import com.bbgplatformer.staticobjects.Background;
+import com.bbgplatformer.staticobjects.HearthImage;
 import com.bbgplatformer.staticobjects.Platform;
 
 public class GameplayScreen extends AbstractScreen {
@@ -17,18 +18,26 @@ public class GameplayScreen extends AbstractScreen {
 	private Player player;
 	private Background bg1;
 	private Background bg2;
+	private HearthImage hearth;
 
 	public GameplayScreen(BBGplatformer game) {
 		super(game);
-	} 
+	}
 
 	protected void init() {
 		assetsInit();
 		bgInit();
 		playerInit();
 		platformInit();
+		hearthImageInit();
 		gravity = -20;
 	}
+
+	private void hearthImageInit() {
+		hearth = new HearthImage(stage.getViewport());
+		stage.addActor(hearth);
+	}
+
 	private void assetsInit() {
 		platformImage = new Texture("t.jpg");
 	}
@@ -36,7 +45,7 @@ public class GameplayScreen extends AbstractScreen {
 	private void bgInit() {
 		bg1 = new Background();
 		bg2 = new Background();
-		Background.setStartingBackgroundPosition(bg1,bg2);
+		Background.setStartingBackgroundPosition(bg1, bg2);
 		stage.addActor(bg1);
 		stage.addActor(bg2);
 	}
@@ -76,8 +85,13 @@ public class GameplayScreen extends AbstractScreen {
 		Background.bgUpdate(player, bg1, bg2);
 		handleInput();
 		gravityUpdate();
+		hpUpdate();
 		stage.act();
 
+	}
+
+	private void hpUpdate() {
+		hearth.setPosition(player.getX() - 340, player.getY() + 235);
 	}
 
 	private void handleInput() {
@@ -101,7 +115,7 @@ public class GameplayScreen extends AbstractScreen {
 			player.jumpVelocity += gravity;
 		} else {
 			player.setPosition(Player.STARTING_X, Player.STARTING_Y);
-			Background.setStartingBackgroundPosition(bg1,bg2);
+			Background.setStartingBackgroundPosition(bg1, bg2);
 		}
 		for (Platform p : platforms) {
 			if (player.isPlayerOnPlatform(p)) {
@@ -114,7 +128,6 @@ public class GameplayScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		batch.dispose();
 		platformImage.dispose();
 	}
 
