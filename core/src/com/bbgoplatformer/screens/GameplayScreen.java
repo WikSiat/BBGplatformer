@@ -20,7 +20,7 @@ public class GameplayScreen extends AbstractScreen {
 
 	public GameplayScreen(BBGplatformer game) {
 		super(game);
-	}
+	} 
 
 	protected void init() {
 		assetsInit();
@@ -29,7 +29,6 @@ public class GameplayScreen extends AbstractScreen {
 		platformInit();
 		gravity = -20;
 	}
-
 	private void assetsInit() {
 		platformImage = new Texture("t.jpg");
 	}
@@ -37,7 +36,7 @@ public class GameplayScreen extends AbstractScreen {
 	private void bgInit() {
 		bg1 = new Background();
 		bg2 = new Background();
-		Background.setStartingBackgroundPossition(bg1,bg2);
+		Background.setStartingBackgroundPosition(bg1,bg2);
 		stage.addActor(bg1);
 		stage.addActor(bg2);
 	}
@@ -101,9 +100,8 @@ public class GameplayScreen extends AbstractScreen {
 		if (player.getY() > 0) {
 			player.jumpVelocity += gravity;
 		} else {
-			player.setX(Player.STARTING_X);
-			player.setY(Player.STARTING_Y);
-			Background.setStartingBackgroundPossition(bg1,bg2);
+			player.setPosition(Player.STARTING_X, Player.STARTING_Y);
+			Background.setStartingBackgroundPosition(bg1,bg2);
 		}
 		for (Platform p : platforms) {
 			if (player.isPlayerOnPlatform(p)) {

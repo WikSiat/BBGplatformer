@@ -18,12 +18,10 @@ public class Background extends Image{
 		super(new Texture(BG_IMAGE));
 	}
 	
-	public static void setStartingBackgroundPossition(Background bg1, Background bg2) {
+	public static void setStartingBackgroundPosition(Background bg1, Background bg2) {
 		bgIndex = 1;
-		bg1.setX(BG1_STARTING_X);
-		bg1.setY(BG_STARTING_Y);
-		bg2.setX(BG2_STARTING_X);
-		bg2.setY(BG_STARTING_Y);
+		bg1.setPosition(Background.BG1_STARTING_X,BG_STARTING_Y);
+		bg2.setPosition(Background.BG2_STARTING_X,BG_STARTING_Y);
 	}
 	
 	// renders looping background that can scroll infinitely and will adjust to player's moves
@@ -43,7 +41,7 @@ public class Background extends Image{
 			} else if (player.getX() == (BG2_STARTING_X + (bgIndex - 1) * 1600 - 430) && !player.isTurnedRight) {
 				bgIndex--;
 				if (bgIndex == 0) {
-					setStartingBackgroundPossition(bg1,bg2);
+					setStartingBackgroundPosition(bg1,bg2);
 				} else {
 					switch (bgIndex % 2) {
 					case 0:
