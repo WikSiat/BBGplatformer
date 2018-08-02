@@ -34,24 +34,6 @@ public class GameplayScreen extends AbstractScreen {
 		gravity = -20;
 	}
 
-	private void hpInit() {
-		hp = 3;
-
-		hpImage = new HpImage[3];
-		
-		for(int i = 0; i < hp; i++) {
-			hpImage[i] = new HpImage();
-			hpImage[i].setX(HpImage.STARTING_X + i * HpImage.WIDTH);
-			hpImage[i].setX(HpImage.STARTING_Y);
-			stage.addActor(hpImage[i]);
-		}
-	}
-
-	private void subtractHp() {
-		hp--;
-		hpImage[hp].remove();
-	}
-
 	private void assetsInit() {
 		platformImage = new Texture("t.jpg");
 	}
@@ -86,6 +68,19 @@ public class GameplayScreen extends AbstractScreen {
 		}
 	}
 
+	private void hpInit() {
+		hp = 3;
+
+		hpImage = new HpImage[3];
+
+		for (int i = 0; i < hp; i++) {
+			hpImage[i] = new HpImage();
+			hpImage[i].setX(HpImage.STARTING_X + i * HpImage.WIDTH);
+			hpImage[i].setX(HpImage.STARTING_Y);
+			stage.addActor(hpImage[i]);
+		}
+	}
+
 	@Override
 	public void render(float delta) {
 		super.render(delta);
@@ -103,12 +98,6 @@ public class GameplayScreen extends AbstractScreen {
 		hpUpdate();
 		stage.act();
 
-	}
-
-	private void hpUpdate() {
-		for(int i = 0; i < hp; i++) {
-			hpImage[i].setPosition(player.getX() + HpImage.STARTING_X + i * HpImage.WIDTH, player.getY() + 245);
-		}
 	}
 
 	private void handleInput() {
@@ -145,9 +134,20 @@ public class GameplayScreen extends AbstractScreen {
 			}
 		}
 	}
-	
+
 	private void cameraUpdate() {
 		camera.position.set((player.getX() + player.getWidth() / 2), (player.getY() + player.getWidth() / 2), 0);
+	}
+
+	private void hpUpdate() {
+		for (int i = 0; i < hp; i++) {
+			hpImage[i].setPosition(player.getX() + HpImage.STARTING_X + i * HpImage.WIDTH, player.getY() + 245);
+		}
+	}
+
+	private void subtractHp() {
+		hp--;
+		hpImage[hp].remove();
 	}
 
 	@Override
