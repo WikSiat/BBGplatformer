@@ -15,8 +15,8 @@ public class Player extends Image {
 	private static final int WIDTH = 60;
 	private static final int HEIGHT = 80;
 
-	public static final int STARTING_X = 0;
-	public static final int STARTING_Y = 150;
+	public final static int STARTING_X = 15;
+	public final static int STARTING_Y = 150;
 
 	public float jumpVelocity;
 	public boolean canJump;

@@ -20,6 +20,8 @@ public class GameplayScreen extends AbstractScreen {
 	private Background bg2;
 	private HpImage[] hpImage;
 	private int hp;
+	
+	private final int CAMERA_Y = 300;
 
 	public GameplayScreen(BBGplatformer game) {
 		super(game);
@@ -136,12 +138,12 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void cameraUpdate() {
-		camera.position.set((player.getX() + player.getWidth() / 2), (player.getY() + player.getHeight() / 2), 0);
+		camera.position.set((player.getX() + player.getWidth() / 2), CAMERA_Y, 0);
 	}
 
 	private void hpUpdate() {
 		for (int i = 0; i < hp; i++) {
-			hpImage[i].setPosition(player.getX() + HpImage.STARTING_X + i * HpImage.WIDTH, player.getY() + 255);
+			hpImage[i].setPosition(player.getX() + HpImage.STARTING_X + i * HpImage.WIDTH, Player.STARTING_Y + 365);
 		}
 	}
 

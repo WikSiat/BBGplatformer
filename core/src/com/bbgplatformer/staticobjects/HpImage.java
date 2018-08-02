@@ -9,7 +9,7 @@ public class HpImage extends Image {
 	public static final int HEIGHT = 20;
 
 	public static final int STARTING_X = -370;
-	public static final int STARTING_Y = 470;
+	public static final int STARTING_Y = 580;
 	
 	private static final String IMAGE = "hearth.png";
 	
