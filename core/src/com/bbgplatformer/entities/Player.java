@@ -37,7 +37,7 @@ public class Player extends Image {
 	}
 
 	private void init() {
-		isTurnedRight = true;
+		isTurnedRight = true;	
 		leftTexture = new Texture("p2.jpg");
 		rightTexture = new Texture("p1.jpg");
 		rightDrawable = new TextureRegionDrawable(new TextureRegion(rightTexture));

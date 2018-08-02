@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.bbgplatformer.BBGplatformer;
+import com.bbgplatformer.entities.GreenMonsterEnemy;
 import com.bbgplatformer.entities.Player;
 import com.bbgplatformer.staticobjects.Background;
 import com.bbgplatformer.staticobjects.HpImage;
@@ -13,15 +14,17 @@ public class GameplayScreen extends AbstractScreen {
 
 	private Texture platformImage;
 	private Platform[] platforms;
-	private int numberOfPlatforms;
 	private int gravity;
 	private Player player;
 	private Background bg1;
 	private Background bg2;
 	private HpImage[] hpImage;
 	private int hp;
+	private GreenMonsterEnemy monster;
 	
 	private final int CAMERA_Y = 300;
+	
+	public final int PLATFORMS_AMOUNT = 200;
 
 	public GameplayScreen(BBGplatformer game) {
 		super(game);
@@ -33,9 +36,10 @@ public class GameplayScreen extends AbstractScreen {
 		playerInit();
 		platformInit();
 		hpInit();
+		monstersInit();
 		gravity = -20;
 	}
-
+	
 	private void assetsInit() {
 		platformImage = new Texture("t.jpg");
 	}
@@ -54,13 +58,12 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void platformInit() {
-		numberOfPlatforms = 20;
 		int x = 0;
 		int y = 150;
 
-		platforms = new Platform[numberOfPlatforms];
+		platforms = new Platform[PLATFORMS_AMOUNT];
 
-		for (int i = 0; i < numberOfPlatforms; i++) {
+		for (int i = 0; i < PLATFORMS_AMOUNT; i++) {
 			platforms[i] = new Platform(platformImage, x, y);
 
 			platforms[i].setX(x);
@@ -83,6 +86,11 @@ public class GameplayScreen extends AbstractScreen {
 		}
 	}
 
+	private void monstersInit() {
+		monster = new GreenMonsterEnemy();
+		stage.addActor(monster);
+	}
+
 	@Override
 	public void render(float delta) {
 		super.render(delta);
@@ -98,6 +106,7 @@ public class GameplayScreen extends AbstractScreen {
 		gravityUpdate();
 		cameraUpdate();
 		hpUpdate();
+		monsterUpdate();
 		stage.act();
 
 	}
@@ -145,6 +154,10 @@ public class GameplayScreen extends AbstractScreen {
 		for (int i = 0; i < hp; i++) {
 			hpImage[i].setPosition(player.getX() + HpImage.STARTING_X + i * HpImage.WIDTH, Player.STARTING_Y + 365);
 		}
+	}
+
+	private void monsterUpdate() {
+			monster.move();
 	}
 
 	private void subtractHp() {
