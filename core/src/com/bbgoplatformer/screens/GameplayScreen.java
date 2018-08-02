@@ -99,6 +99,7 @@ public class GameplayScreen extends AbstractScreen {
 		Background.bgUpdate(player, bg1, bg2);
 		handleInput();
 		gravityUpdate();
+		cameraUpdate();
 		hpUpdate();
 		stage.act();
 
@@ -126,7 +127,6 @@ public class GameplayScreen extends AbstractScreen {
 		float grav = player.jumpVelocity * Gdx.graphics.getDeltaTime();
 		player.setY(player.getY() + grav);
 
-		camera.position.set((player.getX() + player.getWidth() / 2), (player.getY() + player.getWidth() / 2), 0);
 		if (player.getY() > 0) {
 			player.jumpVelocity += gravity;
 		} else {
@@ -144,6 +144,10 @@ public class GameplayScreen extends AbstractScreen {
 				player.setY(p.getY() + p.getHeight());
 			}
 		}
+	}
+	
+	private void cameraUpdate() {
+		camera.position.set((player.getX() + player.getWidth() / 2), (player.getY() + player.getWidth() / 2), 0);
 	}
 
 	@Override
