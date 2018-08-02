@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.bbgplatformer.BBGplatformer;
 import com.bbgplatformer.entities.Player;
 import com.bbgplatformer.staticobjects.Background;
-import com.bbgplatformer.staticobjects.HearthImage;
+import com.bbgplatformer.staticobjects.HpImage;
+import com.bbgplatformer.staticobjects.HpLabel;
 import com.bbgplatformer.staticobjects.Platform;
 
 public class GameplayScreen extends AbstractScreen {
@@ -18,7 +19,9 @@ public class GameplayScreen extends AbstractScreen {
 	private Player player;
 	private Background bg1;
 	private Background bg2;
-	private HearthImage hearth;
+	private HpImage hpImage;
+	private HpLabel hpLabel;
+	private int hp;
 
 	public GameplayScreen(BBGplatformer game) {
 		super(game);
@@ -29,13 +32,22 @@ public class GameplayScreen extends AbstractScreen {
 		bgInit();
 		playerInit();
 		platformInit();
-		hearthImageInit();
+		hpInit();
 		gravity = -20;
 	}
 
-	private void hearthImageInit() {
-		hearth = new HearthImage(stage.getViewport());
-		stage.addActor(hearth);
+	private void hpInit() {
+		hp = 3;
+
+		hpImage = new HpImage();
+		stage.addActor(hpImage);
+
+		hpLabel = new HpLabel();
+		stage.addActor(hpLabel);
+	}
+
+	private void subtractHp() {
+		hp--;
 	}
 
 	private void assetsInit() {
@@ -56,7 +68,7 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void platformInit() {
-		numberOfPlatforms = 200;
+		numberOfPlatforms = 20;
 		int x = 0;
 		int y = 150;
 
@@ -79,6 +91,10 @@ public class GameplayScreen extends AbstractScreen {
 		batch.begin();
 		stage.draw();
 		batch.end();
+
+		batch.begin();
+
+		batch.end();
 	}
 
 	private void update() {
@@ -91,7 +107,9 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void hpUpdate() {
-		hearth.setPosition(player.getX() - 340, player.getY() + 235);
+		hpImage.setPosition(player.getX() - 340, player.getY() + 235);
+		hpLabel.setPosition(player.getX() - 370, player.getY() + 235);
+		hpLabel.setText(Integer.toString(hp));
 	}
 
 	private void handleInput() {
@@ -114,6 +132,10 @@ public class GameplayScreen extends AbstractScreen {
 		if (player.getY() > 0) {
 			player.jumpVelocity += gravity;
 		} else {
+			subtractHp();
+			if (hp == 0) {
+				Gdx.app.exit();
+			}
 			player.setPosition(Player.STARTING_X, Player.STARTING_Y);
 			Background.setStartingBackgroundPosition(bg1, bg2);
 		}
