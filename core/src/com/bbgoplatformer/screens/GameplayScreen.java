@@ -7,7 +7,6 @@ import com.bbgplatformer.BBGplatformer;
 import com.bbgplatformer.entities.Player;
 import com.bbgplatformer.staticobjects.Background;
 import com.bbgplatformer.staticobjects.HpImage;
-import com.bbgplatformer.staticobjects.HpLabel;
 import com.bbgplatformer.staticobjects.Platform;
 
 public class GameplayScreen extends AbstractScreen {
@@ -19,8 +18,7 @@ public class GameplayScreen extends AbstractScreen {
 	private Player player;
 	private Background bg1;
 	private Background bg2;
-	private HpImage hpImage;
-	private HpLabel hpLabel;
+	private HpImage[] hpImage;
 	private int hp;
 
 	public GameplayScreen(BBGplatformer game) {
@@ -39,15 +37,19 @@ public class GameplayScreen extends AbstractScreen {
 	private void hpInit() {
 		hp = 3;
 
-		hpImage = new HpImage();
-		stage.addActor(hpImage);
-
-		hpLabel = new HpLabel();
-		stage.addActor(hpLabel);
+		hpImage = new HpImage[3];
+		
+		for(int i = 0; i < hp; i++) {
+			hpImage[i] = new HpImage();
+			hpImage[i].setX(HpImage.STARTING_X + i * 30);
+			hpImage[i].setX(HpImage.STARTING_Y);
+			stage.addActor(hpImage[i]);
+		}
 	}
 
 	private void subtractHp() {
 		hp--;
+		hpImage[hp].remove();
 	}
 
 	private void assetsInit() {
@@ -91,10 +93,6 @@ public class GameplayScreen extends AbstractScreen {
 		batch.begin();
 		stage.draw();
 		batch.end();
-
-		batch.begin();
-
-		batch.end();
 	}
 
 	private void update() {
@@ -107,9 +105,9 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void hpUpdate() {
-		hpImage.setPosition(player.getX() - 340, player.getY() + 235);
-		hpLabel.setPosition(player.getX() - 370, player.getY() + 235);
-		hpLabel.setText(Integer.toString(hp));
+		for(int i = 0; i < hp; i++) {
+			hpImage[i].setPosition(player.getX() + HpImage.STARTING_X + i * 30, player.getY() + 235);
+		}
 	}
 
 	private void handleInput() {
