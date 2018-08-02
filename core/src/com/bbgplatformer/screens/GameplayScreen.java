@@ -92,7 +92,7 @@ public class GameplayScreen extends AbstractScreen {
 
 	private void update() {
 		Background.bgUpdate(player, bg1, bg2);
-		handleInput();
+		handleInputUpdate();
 		gravityUpdate();
 		cameraUpdate();
 		hpUpdate();
@@ -100,7 +100,7 @@ public class GameplayScreen extends AbstractScreen {
 
 	}
 
-	private void handleInput() {
+	private void handleInputUpdate() {
 		if (Gdx.input.isKeyPressed(Keys.A) && player.getX() > 0) {
 			player.moveLeft();
 		}
@@ -136,12 +136,12 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void cameraUpdate() {
-		camera.position.set((player.getX() + player.getWidth() / 2), (player.getY() + player.getWidth() / 2), 0);
+		camera.position.set((player.getX() + player.getWidth() / 2), (player.getY() + player.getHeight() / 2), 0);
 	}
 
 	private void hpUpdate() {
 		for (int i = 0; i < hp; i++) {
-			hpImage[i].setPosition(player.getX() + HpImage.STARTING_X + i * HpImage.WIDTH, player.getY() + 245);
+			hpImage[i].setPosition(player.getX() + HpImage.STARTING_X + i * HpImage.WIDTH, player.getY() + 255);
 		}
 	}
 
