@@ -1,4 +1,4 @@
-package com.bbgoplatformer.screens;
+package com.bbgplatformer.screens;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Timer;

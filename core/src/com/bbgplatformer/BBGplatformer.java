@@ -1,7 +1,7 @@
 package com.bbgplatformer;
 
 import com.badlogic.gdx.Game;
-import com.bbgoplatformer.screens.SplashScreen;
+import com.bbgplatformer.screens.SplashScreen;
 
 public class BBGplatformer extends Game {
 

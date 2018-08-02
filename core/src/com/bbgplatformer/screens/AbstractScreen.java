@@ -1,4 +1,4 @@
-package com.bbgoplatformer.screens;
+package com.bbgplatformer.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
