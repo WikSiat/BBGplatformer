@@ -5,11 +5,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class HpImage extends Image {
 	
-	private static final int WIDTH = 30;
-	private static final int HEIGHT = 30;
+	public static final int WIDTH = 20;
+	public static final int HEIGHT = 20;
 
 	public static final int STARTING_X = -370;
-	public static final int STARTING_Y = 450;
+	public static final int STARTING_Y = 460;
 	
 	private static final String IMAGE = "hearth.png";
 	

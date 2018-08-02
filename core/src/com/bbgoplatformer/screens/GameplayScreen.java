@@ -41,7 +41,7 @@ public class GameplayScreen extends AbstractScreen {
 		
 		for(int i = 0; i < hp; i++) {
 			hpImage[i] = new HpImage();
-			hpImage[i].setX(HpImage.STARTING_X + i * 30);
+			hpImage[i].setX(HpImage.STARTING_X + i * HpImage.WIDTH);
 			hpImage[i].setX(HpImage.STARTING_Y);
 			stage.addActor(hpImage[i]);
 		}
@@ -106,7 +106,7 @@ public class GameplayScreen extends AbstractScreen {
 
 	private void hpUpdate() {
 		for(int i = 0; i < hp; i++) {
-			hpImage[i].setPosition(player.getX() + HpImage.STARTING_X + i * 30, player.getY() + 235);
+			hpImage[i].setPosition(player.getX() + HpImage.STARTING_X + i * HpImage.WIDTH, player.getY() + 245);
 		}
 	}
 
