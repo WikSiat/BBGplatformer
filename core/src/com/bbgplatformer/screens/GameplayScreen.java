@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.bbgplatformer.BBGplatformer;
-import com.bbgplatformer.entities.GreenMonsterEnemy;
+import com.bbgplatformer.entities.MarshmallowMonsterEnemy;
 import com.bbgplatformer.entities.Player;
 import com.bbgplatformer.staticobjects.Background;
 import com.bbgplatformer.staticobjects.HpImage;
@@ -21,7 +21,7 @@ public class GameplayScreen extends AbstractScreen {
 	private Background bg2;
 	private HpImage[] hpImage;
 	private int hp;
-	private GreenMonsterEnemy monster;
+	private MarshmallowMonsterEnemy monster;
 	private Music bgMusic;
 	
 	private final int CAMERA_Y = 300;
@@ -96,7 +96,7 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void monstersInit() {
-		monster = new GreenMonsterEnemy(600,182,400);
+		monster = new MarshmallowMonsterEnemy(600,182,400);
 		stage.addActor(monster);
 	}
 

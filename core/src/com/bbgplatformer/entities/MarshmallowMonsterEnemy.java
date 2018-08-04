@@ -4,18 +4,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-public class GreenMonsterEnemy extends AbstractEnemy {
+public class MarshmallowMonsterEnemy extends AbstractEnemy {
 
-	private final static String LEFT_TEXTURE_PATH = "monsterLeft.png";
-	private final static String RIGHT_TEXTURE_PATH = "monsterRight.png";
+	private final static String LEFT_TEXTURE_PATH = "marshmallowMonsterLeft.png";
+	private final static String RIGHT_TEXTURE_PATH = "marshmallowMonsterRight.png";
 
-	private final static int WIDTH = 35;
-	private final static int HEIGHT = 48;
+	private final static int WIDTH = 40;
+	private final static int HEIGHT = 43;
 
 	public boolean shouldGoRight;
 
 
-	public GreenMonsterEnemy(int startingX, int startingY, int range) {
+	public MarshmallowMonsterEnemy(int startingX, int startingY, int range) {
 		super(startingX, startingY, range);
 	}
 
