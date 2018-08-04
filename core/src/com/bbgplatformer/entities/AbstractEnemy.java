@@ -7,16 +7,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 public abstract class AbstractEnemy extends Image {
-	
+
 	protected Drawable leftDrawable, rightDrawable;
-	
-	public AbstractEnemy() {
+
+	protected int startingX, startingY, range;
+
+	public AbstractEnemy(int startingX, int startingY, int range) {
 		super();
-		init();
+		init(startingX, startingY, range);
 	}
-	
-	protected abstract void init();
-	
+
+	protected abstract void init(int startingX, int startingY, int range);
+
 	protected void moveLeft() {
 		this.setDrawable(leftDrawable);
 		Action moveLeftAction = Actions.moveBy(-2, 0);
@@ -28,11 +30,11 @@ public abstract class AbstractEnemy extends Image {
 		Action moveRightAction = Actions.moveBy(2, 0);
 		this.addAction(moveRightAction);
 	}
-	
+
 	protected Rectangle getBounds() {
 		return new Rectangle((int) this.getX(), (int) this.getY(), (int) this.getWidth(), (int) this.getHeight());
 	}
-	
+
 	public boolean doesColideWithPlayer(Player player) {
 		return this.getBounds().overlaps(player.getBounds());
 	}

@@ -12,19 +12,18 @@ public class GreenMonsterEnemy extends AbstractEnemy {
 	private final static int WIDTH = 35;
 	private final static int HEIGHT = 48;
 
-	private final static int STARTING_Y = 210;
-	private final static int STARTING_X = 800;
-
 	public boolean shouldGoRight;
 
-	private final static int RANGE = 400;
 
-	public GreenMonsterEnemy() {
-		super();
+	public GreenMonsterEnemy(int startingX, int startingY, int range) {
+		super(startingX, startingY, range);
 	}
 
-	@Override
-	protected void init() {
+	protected void init(int startingX, int startingY, int range) {
+		this.startingX = startingX;
+		this.startingY = startingY;
+		this.range = range;
+
 		shouldGoRight = false;
 
 		this.rightDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(RIGHT_TEXTURE_PATH)));
@@ -34,15 +33,15 @@ public class GreenMonsterEnemy extends AbstractEnemy {
 		this.setOrigin(WIDTH / 2, HEIGHT / 2);
 		this.setSize(WIDTH, HEIGHT);
 
-		this.setX(STARTING_X);
-		this.setY(STARTING_Y);
+		this.setX(startingX);
+		this.setY(startingY);
 	}
 
 	public void move() {
 
-		if (this.getX() == STARTING_X - RANGE / 2) {
+		if (this.getX() == startingX - range / 2) {
 			shouldGoRight = true;
-		} else if (this.getX() == STARTING_X + RANGE / 2) {
+		} else if (this.getX() == startingX + range / 2) {
 			shouldGoRight = false;
 		}
 		// moves monster depending on previous if statements

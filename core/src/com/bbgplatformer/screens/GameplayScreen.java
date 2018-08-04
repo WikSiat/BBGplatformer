@@ -44,7 +44,7 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void assetsInit() {
-		platformImage = new Texture("t.jpg");
+		platformImage = new Texture("grassDirt.png");
 	}
 
 	private void bgInit() {
@@ -96,7 +96,7 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void monstersInit() {
-		monster = new GreenMonsterEnemy();
+		monster = new GreenMonsterEnemy(600,182,400);
 		stage.addActor(monster);
 	}
 
