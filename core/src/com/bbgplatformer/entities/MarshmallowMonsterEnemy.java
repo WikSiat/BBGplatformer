@@ -14,7 +14,6 @@ public class MarshmallowMonsterEnemy extends AbstractEnemy {
 
 	public boolean shouldGoRight;
 
-
 	public MarshmallowMonsterEnemy(int startingX, int startingY, int range) {
 		super(startingX, startingY, range);
 	}
@@ -49,6 +48,22 @@ public class MarshmallowMonsterEnemy extends AbstractEnemy {
 			this.moveRight();
 		} else if (!shouldGoRight) {
 			this.moveLeft();
+		}
+	}
+
+	public boolean doesColideWithPlayer(Player player) {
+		if (this.getBounds().overlaps(player.getBounds())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean doesDieFromPlayer(Player player) {
+		if (doesColideWithPlayer(player) && (this.getY() + this.getHeight()) / 1.1 < player.getY()) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 

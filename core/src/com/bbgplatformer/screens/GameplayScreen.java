@@ -63,9 +63,9 @@ public class GameplayScreen extends AbstractScreen {
 	private void platformInit() {
 		int x = 0;
 		int y = 150;
-		
+
 		// am[x] - am[x-1] = amount of single platforms in one bigger with index x
-		int[] am = {36,50,100,101,103,150,152,220,250,280,360,400,420,440,510,550,590,620,720};
+		int[] am = { 36, 50, 100, 101, 103, 150, 152, 220, 250, 280, 360, 400, 420, 440, 510, 550, 590, 620, 720 };
 
 		platforms = new Platform[PLATFORMS_AMOUNT];
 
@@ -248,7 +248,7 @@ public class GameplayScreen extends AbstractScreen {
 			x += platformImage.getWidth();
 		}
 		x += 200;
-		y  = 150;
+		y = 150;
 		for (int i = am[17]; i < am[18]; i++) {
 			platforms[i] = new Platform(platformImage, x, y);
 
@@ -350,6 +350,11 @@ public class GameplayScreen extends AbstractScreen {
 
 	private void monsterUpdate() {
 		monster.move();
+		if (monster.doesDieFromPlayer(player)) {
+			monster.remove();
+		} else if (monster.doesColideWithPlayer(player)) {
+			System.out.println("colide");
+		}
 	}
 
 	private void subtractHp() {
