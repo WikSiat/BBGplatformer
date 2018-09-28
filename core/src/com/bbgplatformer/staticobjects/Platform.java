@@ -6,8 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Platform extends Image {
 
-	private float x;
-	private float y;
+	public float x;
+	public float y;
 	
 	public Platform(Texture texture, float x, float y) {
 		super(texture);
