@@ -12,12 +12,12 @@ public abstract class AbstractEnemy extends Image {
 
 	protected int startingX, startingY, range;
 
-	public AbstractEnemy(int startingX, int startingY, int range) {
+	public AbstractEnemy(int startingX, int startingY) {
 		super();
-		init(startingX, startingY, range);
+		init(startingX, startingY);
 	}
 
-	protected abstract void init(int startingX, int startingY, int range);
+	protected abstract void init(int startingX, int startingY);
 
 	protected void moveLeft() {
 		this.setDrawable(leftDrawable);

@@ -11,17 +11,17 @@ public class MarshmallowMonsterEnemy extends AbstractEnemy {
 
 	private final static int WIDTH = 40;
 	private final static int HEIGHT = 43;
+	public final static int RANGE = 400;
 
 	public boolean shouldGoRight;
 
-	public MarshmallowMonsterEnemy(int startingX, int startingY, int range) {
-		super(startingX, startingY, range);
+	public MarshmallowMonsterEnemy(int startingX, int startingY) {
+		super(startingX, startingY);
 	}
 
-	protected void init(int startingX, int startingY, int range) {
+	protected void init(int startingX, int startingY) {
 		this.startingX = startingX;
 		this.startingY = startingY;
-		this.range = range;
 
 		shouldGoRight = false;
 
@@ -38,9 +38,9 @@ public class MarshmallowMonsterEnemy extends AbstractEnemy {
 
 	public void move() {
 
-		if (this.getX() == startingX - range / 2) {
+		if (this.getX() == startingX - RANGE / 2) {
 			shouldGoRight = true;
-		} else if (this.getX() == startingX + range / 2) {
+		} else if (this.getX() == startingX + RANGE / 2) {
 			shouldGoRight = false;
 		}
 		// moves monster depending on previous if statements
