@@ -6,29 +6,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Platform extends Image {
 
-	public float x;
-	public float y;
-	
 	public Platform(Texture texture, float x, float y) {
 		super(texture);
 		this.setSize(texture.getWidth(), texture.getWidth());
-		this.x = x;
-		this.y = y;
+		this.setX(x);
+		this.setY(y);
 	}
 
 	public Rectangle getBounds() {
 		return new Rectangle((int) this.getX(), (int) this.getY(), (int) this.getWidth(), (int) this.getHeight());
-	}
-	/*
-	 * 
-	 * getters and setters
-	 */
-	public float getX() {
-		return x;
-	}
-
-	public float getY() {
-		return y;
 	}
 
 }

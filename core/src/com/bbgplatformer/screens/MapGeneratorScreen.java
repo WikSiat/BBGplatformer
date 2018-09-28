@@ -32,7 +32,7 @@ public class MapGeneratorScreen extends AbstractScreen {
 
 	private Preferences prefs;
 
-	private Integer index;
+	private Integer prefsLinePointer;
 
 	public MapGeneratorScreen(BBGplatformer game) {
 		super(game);
@@ -40,8 +40,6 @@ public class MapGeneratorScreen extends AbstractScreen {
 
 	@Override
 	protected void init() {
-		platformAmount = new Integer(0);
-		index = new Integer(0);
 		prefsInit();
 		buttonInit();
 		platformInit();
@@ -89,14 +87,14 @@ public class MapGeneratorScreen extends AbstractScreen {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				prefs.clear();
-				prefs.putInteger(index.toString(), platformAmount);
+				prefs.putInteger(prefsLinePointer.toString(), platformAmount);
 				prefs.flush();
 				for (int i = 0; i < platforms.size(); i++) {
-					index++;
-					prefs.putInteger(index.toString(), (int) platforms.elementAt(i).x);
+					prefsLinePointer++;
+					prefs.putInteger(prefsLinePointer.toString(), (int) platforms.elementAt(i).getX());
 					prefs.flush();
-					index++;
-					prefs.putInteger(index.toString(), (int) platforms.elementAt(i).y);
+					prefsLinePointer++;
+					prefs.putInteger(prefsLinePointer.toString(), (int) platforms.elementAt(i).getY());
 					prefs.flush();
 				}
 				return super.touchDown(event, x, y, pointer, button);
@@ -107,6 +105,7 @@ public class MapGeneratorScreen extends AbstractScreen {
 	}
 
 	private void platformInit() {
+		platformAmount = new Integer(0);
 		platforms = new Vector<Platform>();
 		platformX = 0;
 		platformY = 150;
@@ -120,6 +119,7 @@ public class MapGeneratorScreen extends AbstractScreen {
 
 	private void prefsInit() {
 		prefs = Gdx.app.getPreferences(PREFS_NAME);
+		prefsLinePointer = new Integer(0);
 	}
 
 	@Override
@@ -162,16 +162,16 @@ public class MapGeneratorScreen extends AbstractScreen {
 		// moving camera//
 		// moving platforms//
 		if (Gdx.input.isKeyPressed(Keys.UP)) {
-			platforms.get(platformAmount - 1).y += 2;
+			platforms.get(platformAmount - 1).moveBy(0,2);
 		}
 		if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-			platforms.get(platformAmount - 1).y -= 2;
+			platforms.get(platformAmount - 1).moveBy(0,-2);
 		}
 		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-			platforms.get(platformAmount - 1).x -= 2;
+			platforms.get(platformAmount - 1).moveBy(-2,0);
 		}
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-			platforms.get(platformAmount - 1).x += 2;
+			platforms.get(platformAmount - 1).moveBy(2,0);
 		}
 		// moving platforms//
 	}
