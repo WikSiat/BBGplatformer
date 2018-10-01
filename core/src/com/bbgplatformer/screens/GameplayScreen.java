@@ -1,7 +1,10 @@
 package com.bbgplatformer.screens;
 
+import java.util.Vector;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.bbgplatformer.BBGplatformer;
@@ -13,8 +16,8 @@ import com.bbgplatformer.staticobjects.Platform;
 
 public class GameplayScreen extends AbstractScreen {
 
-	private Texture platformImage;
-	private Platform[] platforms;
+	private Texture platformTexture;
+	private Vector<Platform> platforms;
 	private int gravity;
 	private Player player;
 	private Background bg1;
@@ -26,7 +29,10 @@ public class GameplayScreen extends AbstractScreen {
 
 	private final int CAMERA_Y = 300;
 
-	public final int PLATFORMS_AMOUNT = 720;
+	public int platformAmount;
+
+	private Preferences platformPrefs;
+	private Integer prefsLinePointer;
 
 	public GameplayScreen(BBGplatformer game) {
 		super(game);
@@ -44,7 +50,7 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void assetsInit() {
-		platformImage = new Texture("grassDirt.png");
+		platformTexture = new Texture("grassDirt.png");
 	}
 
 	private void bgInit() {
@@ -61,202 +67,24 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void platformInit() {
-		int x = 0;
-		int y = 150;
+		platforms = new Vector<Platform>();
+		prefsLinePointer = new Integer(0);
 
-		// am[x] - am[x-1] = amount of single platforms in one bigger with index x
-		int[] am = { 36, 50, 100, 101, 103, 150, 152, 220, 250, 280, 360, 400, 420, 440, 510, 550, 590, 620, 720 };
+		platformPrefs = Gdx.app.getPreferences(MapGeneratorScreen.PLATFORMS_PREFS_NAME); // load amount of platforms to render
+		platformAmount = platformPrefs.getInteger(prefsLinePointer.toString());
 
-		platforms = new Platform[PLATFORMS_AMOUNT];
+		int x = 0; // variable where we will store x of platform we're loading in each iteration
+		int y = 0; // variable where we will store y of platform we're loading in each iteration
 
-		for (int i = 0; i < am[0]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
+		for (int i = 0; i < platformAmount; i++) {
+			prefsLinePointer++;
+			x = platformPrefs.getInteger(prefsLinePointer.toString());
+			prefsLinePointer++;
+			y = platformPrefs.getInteger(prefsLinePointer.toString());
+			platforms.addElement(new Platform(platformTexture, x, y));
+			stage.addActor(platforms.get(i));
 		}
-		x += 96;
-		y += 64;
-		for (int i = am[0]; i < am[1]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
 
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 130;
-		y = 150;
-		for (int i = am[1]; i < am[2]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 96;
-		y += 55;
-		for (int i = am[2]; i < am[3]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 150;
-		y += 64;
-		for (int i = am[3]; i < am[4]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 100;
-		y += 40;
-		for (int i = am[4]; i < am[5]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 64;
-		y -= 40;
-		for (int i = am[5]; i < am[6]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 110;
-		y = 150;
-		for (int i = am[6]; i < am[7]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 90;
-		y += 60;
-		for (int i = am[7]; i < am[8]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 90;
-		y += 60;
-		for (int i = am[8]; i < am[9]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 240;
-		y = 150;
-		for (int i = am[9]; i < am[10]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 90;
-		y += 70;
-		for (int i = am[10]; i < am[11]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 90;
-		y += 64;
-		for (int i = am[11]; i < am[12]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 90;
-		y += 55;
-		for (int i = am[12]; i < am[13]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 90;
-		y += 50;
-		for (int i = am[13]; i < am[14]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 180;
-		y = 180;
-		for (int i = am[14]; i < am[15]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 96;
-		y += 60;
-		for (int i = am[15]; i < am[16]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 96;
-		y += 60;
-		for (int i = am[16]; i < am[17]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
-		x += 200;
-		y = 150;
-		for (int i = am[17]; i < am[18]; i++) {
-			platforms[i] = new Platform(platformImage, x, y);
-
-			platforms[i].setX(x);
-			platforms[i].setY(y);
-			stage.addActor(platforms[i]);
-			x += platformImage.getWidth();
-		}
 	}
 
 	private void hpInit() {
@@ -279,7 +107,7 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void monstersInit() {
-		monster = new MarshmallowMonsterEnemy(600, 182, 400);
+		monster = new MarshmallowMonsterEnemy(600, 182);
 		stage.addActor(monster);
 	}
 
@@ -364,7 +192,7 @@ public class GameplayScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		platformImage.dispose();
+		platformTexture.dispose();
 	}
 
 }
